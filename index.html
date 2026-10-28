@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Pikachu Cổ Điển 2003 - 36 Sprite Riêng Biệt</title>
+  <title>Pikachu Cổ Điển 2003 - Xuất Nhập Sprite Full & Ảnh HD</title>
   <style>
     :root {
       --tile-size: 48px;
@@ -44,29 +44,38 @@
       align-items: center;
     }
 
+    /* Menu trên cùng */
     .top-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 100%;
+      margin-bottom: 6px;
+    }
+
+    .top-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      margin-bottom: 6px;
       gap: 6px;
+      flex-wrap: wrap;
     }
 
     .mode-selector {
       display: flex;
-      gap: 5px;
+      gap: 4px;
       background: rgba(0,0,0,0.3);
-      padding: 4px 8px;
-      border-radius: 20px;
+      padding: 3px 8px;
+      border-radius: 16px;
       overflow-x: auto;
     }
 
     .mode-btn {
       background: #3f51b5;
       color: #fff;
-      border: 2px solid #5c6bc0;
-      padding: 4px 9px;
+      border: 1.5px solid #5c6bc0;
+      padding: 4px 8px;
       border-radius: 12px;
       cursor: pointer;
       font-size: 11px;
@@ -80,6 +89,36 @@
       color: #3e2723;
       border-color: #ffd54f;
       box-shadow: 0 0 6px #ffb300;
+    }
+
+    /* Bộ Sprite chuyển đổi nhanh */
+    .sprite-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0,0,0,0.35);
+      padding: 3px 8px;
+      border-radius: 16px;
+    }
+
+    .sprite-toggle-btn {
+      background: #37474f;
+      color: #eceff1;
+      border: 1.5px solid #546e7a;
+      padding: 3px 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: bold;
+      transition: 0.15s;
+      white-space: nowrap;
+    }
+
+    .sprite-toggle-btn.active {
+      background: #00e676;
+      color: #1b5e20;
+      border-color: #00c853;
+      box-shadow: 0 0 6px #00e676;
     }
 
     .btn-custom {
@@ -247,12 +286,36 @@
       padding: 2px;
     }
 
-    .tile img {
+    /* Sprite cắt từ pieces-sprite.png chuẩn tỷ lệ retro */
+    .sprite-png-icon {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      background-image: url('pieces-sprite.png');
+      background-size: 3600% 100%;
+      background-repeat: no-repeat;
       image-rendering: pixelated;
       pointer-events: none;
+    }
+
+    .sprite-emoji {
+      font-size: var(--font-size);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Ảnh Custom Photobooth: Hiển thị mượt mà HD, khử răng cưa */
+    .tile img, .slot-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: auto;
+      image-rendering: -webkit-optimize-contrast;
+      pointer-events: none;
+      border-radius: 3px;
     }
 
     .tile:hover {
@@ -382,7 +445,7 @@
       background: #f7ecd2;
       border: 5px solid #8c5b23;
       border-radius: 14px;
-      width: 680px;
+      width: 700px;
       max-width: 96vw;
       max-height: 92vh;
       overflow-y: auto;
@@ -430,8 +493,8 @@
     }
 
     .camera-box {
-      width: 180px;
-      height: 180px;
+      width: 190px;
+      height: 190px;
       position: relative;
       background: #000;
       border-radius: 8px;
@@ -476,10 +539,9 @@
 
     .camera-flash.flash { opacity: 1; }
 
-    /* Lưới 36 ô riêng biệt */
     .slots-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
       gap: 5px;
       max-height: 190px;
       overflow-y: auto;
@@ -491,8 +553,8 @@
     }
 
     .slot-item {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 4px;
       border: 2px solid #8c5b23;
       background: #fff8e7;
@@ -516,20 +578,13 @@
       z-index: 2;
     }
 
-    .slot-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      image-rendering: pixelated;
-    }
-
     .slot-num {
       position: absolute;
       bottom: 1px;
       right: 1px;
-      background: rgba(0,0,0,0.65);
+      background: rgba(0,0,0,0.7);
       color: #fff;
-      font-size: 8px;
+      font-size: 8.5px;
       padding: 0 2px;
       border-radius: 2px;
     }
@@ -552,8 +607,9 @@
     }
 
     .btn-snap { background: #ff5722; border-color: #bf360c; color: #fff; font-size: 13px; padding: 7px 18px; }
-    .btn-export-json { background: #5c6bc0; border-color: #283593; color: #fff; }
     .btn-export-png { background: #00897b; border-color: #004d40; color: #fff; }
+    .btn-export-json { background: #5c6bc0; border-color: #283593; color: #fff; }
+    .btn-export-zip { background: #6a1b9a; border-color: #4a148c; color: #fff; }
     .btn-import-file { background: #ff9800; border-color: #e65100; color: #fff; cursor: pointer; }
     .btn-apply { background: #4caf50; border-color: #1b5e20; color: #fff; width: 100%; padding: 9px; font-size: 13px; margin-top: 8px; }
     .btn-reset-default { background: #ffffff; border-color: #d32f2f; color: #d32f2f; width: 100%; padding: 8px; font-size: 12px; margin-top: 6px; }
@@ -563,12 +619,24 @@
 
 <div class="game-container">
   <div class="top-bar">
-    <div class="mode-selector">
-      <button class="mode-btn active" onclick="switchGameMode('classic', event)">🏆 Vô Tận (15+ Màn)</button>
-      <button class="mode-btn" onclick="switchGameMode('time_attack', event)">⏱️ Siêu Tốc</button>
-      <button class="mode-btn" onclick="switchGameMode('zen', event)">☕ Thư Giãn</button>
+    <div class="top-row">
+      <!-- Chọn chế độ chơi -->
+      <div class="mode-selector">
+        <button class="mode-btn active" onclick="switchGameMode('classic', event)">🏆 Vô Tận (15+ Màn)</button>
+        <button class="mode-btn" onclick="switchGameMode('time_attack', event)">⏱️ Siêu Tốc</button>
+        <button class="mode-btn" onclick="switchGameMode('zen', event)">☕ Thư Giãn</button>
+      </div>
+
+      <!-- Chọn nhanh Bộ Sprite (Mặc định: pieces-sprite.png) -->
+      <div class="sprite-selector">
+        <span style="font-size: 11px; font-weight: bold; color: #fff; margin-right: 2px;">Sprite:</span>
+        <button class="sprite-toggle-btn active" id="btnSpritePng" onclick="switchSpriteSet('png')">🐾 pieces-sprite.png</button>
+        <button class="sprite-toggle-btn" id="btnSpriteEmoji" onclick="switchSpriteSet('emoji')">🦁 Emoji</button>
+        <button class="sprite-toggle-btn" id="btnSpriteCustom" onclick="switchSpriteSet('custom')">📸 Ảnh Custom</button>
+      </div>
+
+      <button class="btn-custom" onclick="openCustomModal()">📸 Chụp / Xuất Sprite 🎨</button>
     </div>
-    <button class="btn-custom" onclick="openCustomModal()">📸 36 Sprite & Nền 🎨</button>
   </div>
 
   <div class="rule-banner" id="ruleBanner">Quy luật: Màn 1 - Đứng yên</div>
@@ -623,18 +691,35 @@
   </div>
 </div>
 
-<!-- ================= MODAL QUẢN LÝ 36 SPRITE RIÊNG BIỆT ================= -->
+<!-- ================= MODAL QUẢN LÝ 36 SPRITE & XUẤT NHẬP FULL ================= -->
 <div id="customModal" class="modal-backdrop">
   <div class="modal-card">
     <div class="modal-title">
-      <span>📸 36 Sprite Riêng Biệt & Xuất/Nhập</span>
+      <span>📸 36 Sprite Riêng Biệt & Xuất / Nhập Full</span>
       <button class="close-btn" onclick="closeCustomModal()">✕</button>
     </div>
 
-    <!-- KHU VỰC CHỤP RIÊNG CHO TỪNG Ô -->
+    <!-- KHU VỰC XUẤT & NHẬP FULL SPRITE -->
+    <div class="booth-section" style="background: #e8f5e9; border-color: #4caf50;">
+      <div style="font-weight: bold; color: #2e7d32; margin-bottom: 4px;">💾 Xuất & Nhập Trọn Bộ 36 Sprite (Dùng Lại & Chia Sẻ)</div>
+      <div style="font-size: 11px; color: #33691e; margin-bottom: 8px;">
+        Xuất file để lần sau mở lại là chơi ngay, hoặc tạo dải ảnh chuẩn để làm file <b>pieces-sprite.png</b>:
+      </div>
+      <div class="btn-row">
+        <button class="action-btn btn-export-png" onclick="exportSpriteStripPNG()">📤 Xuất Dải Ảnh PNG (pieces-sprite.png)</button>
+        <button class="action-btn btn-export-json" onclick="exportSpritesJSON()">💾 Xuất File JSON 36 Hình</button>
+        <button class="action-btn btn-export-zip" onclick="downloadAllSeparateImages()">📦 Tải 36 Ảnh Rời (.png)</button>
+        <label class="action-btn btn-import-file">
+          📥 Nhập File (Dải ảnh / JSON / Nhiều ảnh)
+          <input type="file" multiple accept="image/*,.json" style="display: none;" onchange="handleUniversalImport(event)">
+        </label>
+      </div>
+    </div>
+
+    <!-- CHỤP RIÊNG TỪNG Ô ĐỘC LẬP -->
     <div class="booth-section">
       <div style="font-size: 13px; font-weight: bold; margin-bottom: 6px; color: #b71c1c;">
-        🎯 Đang chọn: <span style="font-size: 16px;">Ô SỐ <span id="currentSlotLabel">1</span></span> (36 ô độc lập)
+        🎯 Đang chọn: <span style="font-size: 16px;">Ô SỐ <span id="currentSlotLabel">1</span></span> (Chụp ô nào lưu duy nhất ô đó)
       </div>
 
       <div class="camera-container">
@@ -646,9 +731,8 @@
         </div>
       </div>
 
-      <!-- Thao tác CHỈ ÁP DỤNG cho ô đang chọn -->
       <div class="btn-row">
-        <button class="action-btn btn-snap" onclick="snapCurrentSlotOnly()">📸 Chụp Lưu Vào Ô <span id="btnSlotNum">1</span></button>
+        <button class="action-btn btn-snap" onclick="snapCurrentSlotOnly()">📸 Chụp Lưu Vào Ô <span id="btnSlotNum">1</span> (HD 192px)</button>
       </div>
       <div class="btn-row">
         <label class="action-btn" style="background: #0288d1; border-color: #01579b; color: #fff; cursor: pointer;">
@@ -669,25 +753,9 @@
       <div class="slots-grid" id="slotsGrid"></div>
     </div>
 
-    <!-- XUẤT VÀ NHẬP TOÀN BỘ 36 Ô RIÊNG BIỆT -->
-    <div class="booth-section" style="background: #e8f5e9; border-color: #4caf50;">
-      <div style="font-weight: bold; color: #2e7d32; margin-bottom: 4px;">💾 Xuất / Nhập 36 Sprite Để Dùng Lại</div>
-      <div style="font-size: 11px; color: #33691e; margin-bottom: 6px;">
-        Lưu lại 36 hình riêng biệt để lần sau nạp lại ngay lập tức:
-      </div>
-      <div class="btn-row">
-        <button class="action-btn btn-export-json" onclick="exportSpritesJSON()">💾 Xuất File 36 Hình (.json)</button>
-        <button class="action-btn btn-export-png" onclick="downloadAllSeparateImages()">📦 Tải 36 Ảnh Rời (.png)</button>
-        <label class="action-btn btn-import-file">
-          📥 Nhập File Đã Lưu (.json hoặc nhiều ảnh)
-          <input type="file" multiple accept="image/*,.json" style="display: none;" onchange="handleUniversalImport(event)">
-        </label>
-      </div>
-    </div>
-
     <!-- Tùy chọn nền NGUYÊN KHUNG GAME -->
     <div class="booth-section">
-      <div style="font-weight: bold; margin-bottom: 6px; color: #4e342e;">🌄 Ảnh Nền Phủ Nguyên Khung Game</div>
+      <div style="font-weight: bold; margin-bottom: 6px; color: #4e342e;">🌄 Ảnh Nền Phủ Toàn Bộ Khung Game</div>
       <div class="btn-row">
         <button class="action-btn" style="background: #dfb774; border-color: #8c5b23; color: #4a2d0b;" onclick="resetBackgroundToDefault()">
           🪵 Dùng Màu Gỗ Bình Thường (Mặc Định)
@@ -699,7 +767,7 @@
       </div>
     </div>
 
-    <button class="action-btn btn-apply" onclick="applyCustomAssets()">✅ Áp Dụng 36 Sprite & Chơi Ngay</button>
+    <button class="action-btn btn-apply" onclick="applyCustomAssets()">✅ Áp Dụng Bộ Custom & Chơi Ngay</button>
     <button class="action-btn btn-reset-default" onclick="resetAllToDefault()">🔄 Khôi Phục Tất Cả 36 Ô Về Mặc Định Ban Đầu</button>
   </div>
 </div>
@@ -715,16 +783,25 @@
   let gapSize = 3;
   let paddingSize = 24;
 
+  let activeSpriteSet = "png"; // Mặc định là pieces-sprite.png
+
   let sprites36 = new Array(TOTAL_SPRITES).fill(null);
   let defaultPokemonBackup = new Array(TOTAL_SPRITES).fill(null);
-  let targetSlotIndex = 0; // Ô đang được chọn (0 -> 35)
+  let targetSlotIndex = 0;
+
+  const DEFAULT_EMOJIS = [
+    "🌀", "⚡", "🐱", "🪸", "🐑", "🦭", "🐦", "💧", "🕊️", "🐛",
+    "🐊", "🧚", "🐚", "🦆", "🦇", "🦒", "🐭", "🐝", "🦅", "🐸",
+    "🐞", "🐧", "🧬", "🐄", "🍃", "🦄", "🐰", "🐴", "🦋", "🐣",
+    "🔥", "🐕", "🦊", "🌱", "🐒", "🐢"
+  ];
 
   const SHIFT_RULES = [
     { name: "Đứng yên (Cơ bản)", type: "none" },
     { name: "⬇️ Dồn rơi xuống đáy", type: "down" },
     { name: "⬆️ Dồn đẩy lên đỉnh", type: "up" },
-    { name: "⬅️ Dồn toàn bộ sang trái", type: "left" },
-    { name: "➡️ Dồn toàn bộ sang phải", type: "right" },
+    { name: "⬅️ Dồn sang trái", type: "left" },
+    { name: "➡️ Dồn sang phải", type: "right" },
     { name: "↕️ Dồn dọc vào giữa", type: "center_v" },
     { name: "↔️ Dồn ngang vào giữa", type: "center_h" },
     { name: "↖️ Dạt sang 2 mép bên ngoài", type: "split_out" },
@@ -792,36 +869,43 @@
     } catch(e) {}
   }
 
-  function initDefaultPixelSprites() {
-    const POKEMON_ICONS = [
-      { e: "🌀", bg: "#bbdefb" }, { e: "⚡", bg: "#fff9c4" }, { e: "🐱", bg: "#ffe0b2" }, { e: "🪸", bg: "#f8bbd0" },
-      { e: "🐑", bg: "#fffde7" }, { e: "🦭", bg: "#e0f7fa" }, { e: "🐦", bg: "#c8e6c9" }, { e: "💧", bg: "#b3e5fc" },
-      { e: "🕊️", bg: "#f3e5f5" }, { e: "🐛", bg: "#dcedc8" }, { e: "🐊", bg: "#b2ebf2" }, { e: "🧚", bg: "#fce4ec" },
-      { e: "🐚", bg: "#cfd8dc" }, { e: "🦆", bg: "#fff59d" }, { e: "🦇", bg: "#e1bee7" }, { e: "🦒", bg: "#fff176" },
-      { e: "🐭", bg: "#81d4fa" }, { e: "🐝", bg: "#fff59d" }, { e: "🦅", bg: "#d7ccc8" }, { e: "🐸", bg: "#a5d6a7" },
-      { e: "🐞", bg: "#ffcdd2" }, { e: "🐧", bg: "#ef9a9a" }, { e: "🧬", bg: "#f8bbd0" }, { e: "🐄", bg: "#fce4ec" },
-      { e: "🍃", bg: "#c8e6c9" }, { e: "🦄", bg: "#ffe0b2" }, { e: "🐰", bg: "#b3e5fc" }, { e: "🐴", bg: "#b2dfdb" },
-      { e: "🦋", bg: "#d1c4e9" }, { e: "🐣", bg: "#fff9c4" }, { e: "🔥", bg: "#ffccbc" }, { e: "🐕", bg: "#ffe0b2" },
-      { e: "🦊", bg: "#ffab91" }, { e: "🌱", bg: "#b2dfdb" }, { e: "🐒", bg: "#e1bee7" }, { e: "🐢", bg: "#80deea" }
-    ];
+  function switchSpriteSet(setName) {
+    activeSpriteSet = setName;
 
+    document.getElementById("btnSpritePng").classList.toggle("active", setName === "png");
+    document.getElementById("btnSpriteEmoji").classList.toggle("active", setName === "emoji");
+    document.getElementById("btnSpriteCustom").classList.toggle("active", setName === "custom");
+
+    renderBoard();
+  }
+
+  /* Khởi tạo 36 ô mặc định với độ phân giải cao 192x192 */
+  function initDefaultPixelSprites() {
     for (let i = 0; i < TOTAL_SPRITES; i++) {
       const c = document.createElement("canvas");
-      c.width = 48; c.height = 48;
+      c.width = 192; c.height = 192;
       const cCtx = c.getContext("2d");
-      const item = POKEMON_ICONS[i % POKEMON_ICONS.length];
-
-      cCtx.fillStyle = item.bg;
-      cCtx.fillRect(0, 0, 48, 48);
-      cCtx.font = "26px sans-serif";
+      cCtx.fillStyle = "#fff8e7";
+      cCtx.fillRect(0, 0, 192, 192);
+      cCtx.font = "96px sans-serif";
       cCtx.textAlign = "center";
       cCtx.textBaseline = "middle";
-      cCtx.fillText(item.e, 24, 25);
+      cCtx.fillText(DEFAULT_EMOJIS[i], 96, 102);
 
       const url = c.toDataURL("image/png");
       sprites36[i] = url;
       defaultPokemonBackup[i] = url;
     }
+  }
+
+  function checkPiecesSpriteFile() {
+    const testImg = new Image();
+    testImg.onload = () => console.log("Đã tìm thấy pieces-sprite.png!");
+    testImg.onerror = () => {
+      const banner = document.getElementById("ruleBanner");
+      banner.innerText = `💡 Gợi ý: Chưa thấy file "pieces-sprite.png" cùng thư mục. Hãy copy file vào hoặc bấm [🦁 Emoji] để chơi ngay!`;
+    };
+    testImg.src = "pieces-sprite.png";
   }
 
   function saveToLocalStorage() {
@@ -846,7 +930,6 @@
     return false;
   }
 
-  /* ================== THAO TÁC RIÊNG TỪNG Ô (CHỤP Ô NÀO LƯU Ô ĐÓ) ================== */
   function selectSlot(idx) {
     targetSlotIndex = idx;
     const num = idx + 1;
@@ -856,7 +939,7 @@
     renderSlotsGrid();
   }
 
-  // CHỤP VÀ LƯU DUY NHẤT VÀO Ô ĐANG CHỌN (KHÔNG NHẢY SANG Ô KHÁC)
+  /* Chụp ảnh độ phân giải cao HD (192x192) - Lưu duy nhất vào ô đang chọn */
   function snapCurrentSlotOnly() {
     let count = 3;
     const countdownEl = document.getElementById("cameraCountdown");
@@ -872,29 +955,32 @@
         clearInterval(t);
         countdownEl.style.display = "none";
 
-        // Chớp sáng & Âm thanh
         const flashEl = document.getElementById("cameraFlash");
         flashEl.classList.add("flash");
         playShutterSound();
         setTimeout(() => flashEl.classList.remove("flash"), 150);
 
-        // Chụp vuông và lưu đúng ô đang chọn
-        const tempCanvas = document.createElement("canvas");
         const video = document.getElementById("cameraVideo");
-        const vW = video.videoWidth || 300;
-        const vH = video.videoHeight || 300;
+        const vW = video.videoWidth || 640;
+        const vH = video.videoHeight || 640;
         const cropSize = Math.min(vW, vH);
-        tempCanvas.width = 48; tempCanvas.height = 48;
-        const tCtx = tempCanvas.getContext("2d");
 
-        tCtx.translate(48, 0);
+        // NÂNG CẤP ĐỘ PHÂN GIẢI CAO 192x192 pixel
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = 192; 
+        tempCanvas.height = 192;
+        const tCtx = tempCanvas.getContext("2d");
+        tCtx.imageSmoothingEnabled = true;
+        tCtx.imageSmoothingQuality = "high";
+
+        tCtx.translate(192, 0);
         tCtx.scale(-1, 1);
 
         const sX = (vW - cropSize) / 2;
         const sY = (vH - cropSize) / 2;
-        tCtx.drawImage(video, sX, sY, cropSize, cropSize, 0, 0, 48, 48);
+        tCtx.drawImage(video, sX, sY, cropSize, cropSize, 0, 0, 192, 192);
 
-        // LƯU DUY NHẤT VÀO targetSlotIndex, GIỮ NGUYÊN CON TRỎ TẠI Ô NÀY
+        // Lưu ảnh chất lượng cao vào đúng ô đang chọn
         sprites36[targetSlotIndex] = tempCanvas.toDataURL("image/png");
         saveToLocalStorage();
         renderSlotsGrid();
@@ -902,7 +988,6 @@
     }, 600);
   }
 
-  // Tải ảnh riêng lẻ cho ô đang chọn
   function handleSingleSlotUpload(e) {
     const file = e.target.files[0];
     if (!file) return;
@@ -912,12 +997,15 @@
       const img = new Image();
       img.onload = () => {
         const tempCanvas = document.createElement("canvas");
-        tempCanvas.width = 48; tempCanvas.height = 48;
+        tempCanvas.width = 192; 
+        tempCanvas.height = 192;
         const tCtx = tempCanvas.getContext("2d");
-        const cropSize = Math.min(img.width, img.height);
-        tCtx.drawImage(img, (img.width - cropSize)/2, (img.height - cropSize)/2, cropSize, cropSize, 0, 0, 48, 48);
+        tCtx.imageSmoothingEnabled = true;
+        tCtx.imageSmoothingQuality = "high";
 
-        // Gán ảnh vào đúng ô đang chọn
+        const cropSize = Math.min(img.width, img.height);
+        tCtx.drawImage(img, (img.width - cropSize)/2, (img.height - cropSize)/2, cropSize, cropSize, 0, 0, 192, 192);
+
         sprites36[targetSlotIndex] = tempCanvas.toDataURL("image/png");
         saveToLocalStorage();
         renderSlotsGrid();
@@ -928,7 +1016,6 @@
     e.target.value = "";
   }
 
-  // Tải file ảnh riêng của ô đang chọn về máy
   function downloadSingleSlotImage() {
     const a = document.createElement("a");
     a.download = `sprite_slot_${targetSlotIndex + 1}.png`;
@@ -936,7 +1023,6 @@
     a.click();
   }
 
-  // Khôi phục chỉ riêng ô đang chọn về Pokémon ban đầu
   function resetSingleSlotToDefault() {
     sprites36[targetSlotIndex] = defaultPokemonBackup[targetSlotIndex];
     saveToLocalStorage();
@@ -960,7 +1046,36 @@
     }
   }
 
-  /* ================== XUẤT VÀ NHẬP 36 ẢNH RIÊNG BIỆT ================== */
+  /* ================== XUẤT & NHẬP FULL SPRITE ================== */
+
+  // 1. Xuất Dải Ảnh PNG độ phân giải cao (192px mỗi ô x 36 ô = dài 6912px)
+  function exportSpriteStripPNG() {
+    const W = 192, H = 192;
+    const expCanvas = document.createElement("canvas");
+    expCanvas.width = TOTAL_SPRITES * W;
+    expCanvas.height = H;
+    const expCtx = expCanvas.getContext("2d");
+    expCtx.imageSmoothingEnabled = true;
+    expCtx.imageSmoothingQuality = "high";
+
+    let loaded = 0;
+    for (let i = 0; i < TOTAL_SPRITES; i++) {
+      const img = new Image();
+      img.onload = () => {
+        expCtx.drawImage(img, i * W, 0, W, H);
+        loaded++;
+        if (loaded === TOTAL_SPRITES) {
+          const a = document.createElement("a");
+          a.download = "pieces-sprite.png"; // Lưu thẳng thành tên chuẩn
+          a.href = expCanvas.toDataURL("image/png");
+          a.click();
+        }
+      };
+      img.src = sprites36[i];
+    }
+  }
+
+  // 2. Xuất File JSON 36 hình
   function exportSpritesJSON() {
     const blob = new Blob([JSON.stringify(sprites36)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -971,8 +1086,9 @@
     URL.revokeObjectURL(url);
   }
 
+  // 3. Tải 36 ảnh rời PNG
   function downloadAllSeparateImages() {
-    if (!confirm("Trình duyệt sẽ tải về 36 file ảnh PNG riêng biệt (từ ô 1 đến ô 36). Bạn có muốn tải không?")) return;
+    if (!confirm("Trình duyệt sẽ tải về trọn bộ 36 file ảnh PNG riêng lẻ chất lượng cao. Bạn có muốn tải không?")) return;
     for (let i = 0; i < TOTAL_SPRITES; i++) {
       setTimeout(() => {
         const a = document.createElement("a");
@@ -983,11 +1099,11 @@
     }
   }
 
+  // 4. Nhập file thông minh (Nhận diện tự động JSON / Dải ảnh / Nhiều ảnh)
   function handleUniversalImport(e) {
     const files = Array.from(e.target.files);
     if (!files.length) return;
 
-    // Trường hợp nạp file JSON
     if (files[0].type === "application/json" || files[0].name.endsWith(".json")) {
       const reader = new FileReader();
       reader.onload = (ev) => {
@@ -997,6 +1113,7 @@
             sprites36 = data.slice(0, TOTAL_SPRITES);
             saveToLocalStorage();
             renderSlotsGrid();
+            switchSpriteSet("custom");
             alert("✅ Đã nạp thành công 36 hình riêng biệt từ file JSON!");
           } else {
             alert("File JSON không hợp lệ hoặc thiếu ảnh!");
@@ -1006,18 +1123,52 @@
         }
       };
       reader.readAsText(files[0]);
+    } else if (files.length === 1 && files[0].type.startsWith("image/")) {
+      // Nhập 1 file dải ảnh (tự động cắt thành 36 ô)
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = () => {
+          const spriteWidth = img.width / TOTAL_SPRITES;
+          const spriteHeight = img.height;
+
+          for (let i = 0; i < TOTAL_SPRITES; i++) {
+            const c = document.createElement("canvas");
+            c.width = 192; c.height = 192;
+            const cCtx = c.getContext("2d");
+            cCtx.imageSmoothingEnabled = true;
+            cCtx.imageSmoothingQuality = "high";
+
+            cCtx.drawImage(
+              img,
+              i * spriteWidth, 0, spriteWidth, spriteHeight,
+              0, 0, 192, 192
+            );
+            sprites36[i] = c.toDataURL("image/png");
+          }
+
+          saveToLocalStorage();
+          renderSlotsGrid();
+          switchSpriteSet("custom");
+          alert("✅ Đã cắt và nạp thành công 36 Sprite từ dải ảnh!");
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(files[0]);
     } else {
-      // Trường hợp chọn nhiều ảnh rời từ máy (điền lần lượt vào các ô)
+      // Nhập nhiều ảnh rời
       files.slice(0, TOTAL_SPRITES).forEach((file, index) => {
         const reader = new FileReader();
         reader.onload = (ev) => {
           const img = new Image();
           img.onload = () => {
             const tempCanvas = document.createElement("canvas");
-            tempCanvas.width = 48; tempCanvas.height = 48;
+            tempCanvas.width = 192; tempCanvas.height = 192;
             const tCtx = tempCanvas.getContext("2d");
+            tCtx.imageSmoothingEnabled = true;
+            tCtx.imageSmoothingQuality = "high";
             const cropSize = Math.min(img.width, img.height);
-            tCtx.drawImage(img, (img.width - cropSize)/2, (img.height - cropSize)/2, cropSize, cropSize, 0, 0, 48, 48);
+            tCtx.drawImage(img, (img.width - cropSize)/2, (img.height - cropSize)/2, cropSize, cropSize, 0, 0, 192, 192);
             sprites36[index] = tempCanvas.toDataURL("image/png");
             saveToLocalStorage();
             renderSlotsGrid();
@@ -1026,6 +1177,7 @@
         };
         reader.readAsDataURL(file);
       });
+      switchSpriteSet("custom");
       alert(`Đã nạp ${Math.min(files.length, TOTAL_SPRITES)} ảnh vào các ô cờ!`);
     }
     e.target.value = "";
@@ -1038,19 +1190,20 @@
   }
 
   function resetAllToDefault() {
-    if (!confirm("Bạn có chắc muốn đặt lại toàn bộ 36 ô về Pokémon mặc định?")) return;
+    if (!confirm("Bạn có chắc muốn đặt lại toàn bộ 36 ô về mặc định?")) return;
     localStorage.removeItem("pikachu_saved_sprites_36");
     initDefaultPixelSprites();
     resetBackgroundToDefault();
     selectSlot(0);
     closeCustomModal();
+    switchSpriteSet("png");
     initGame();
   }
 
   function autoFitScreen() {
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
-    const headerHeight = 150; 
+    const headerHeight = 170; 
     const availableW = screenW - 20;
     const availableH = screenH - headerHeight;
 
@@ -1072,6 +1225,7 @@
     document.documentElement.style.setProperty("--tile-size", tileSize + "px");
     document.documentElement.style.setProperty("--gap-size", gapSize + "px");
     document.documentElement.style.setProperty("--padding-size", paddingSize + "px");
+    document.documentElement.style.setProperty("--font-size", Math.max(12, Math.floor(tileSize * 0.52)) + "px");
     document.documentElement.style.setProperty("--board-w", boardW + "px");
     document.documentElement.style.setProperty("--board-h", boardH + "px");
 
@@ -1151,8 +1305,8 @@
     const numTypes = Math.min(18 + level * 2, TOTAL_SPRITES);
 
     for (let i = 0; i < pairsLeft; i++) {
-      let icon = sprites36[i % numTypes];
-      pool.push(icon, icon);
+      let spriteId = (i % numTypes) + 1;
+      pool.push(spriteId, spriteId);
     }
     pool.sort(() => Math.random() - 0.5);
 
@@ -1171,6 +1325,21 @@
     if (!isPaused) startTimer();
   }
 
+  function renderTileContent(spriteId) {
+    const idx = spriteId - 1;
+
+    if (activeSpriteSet === "png") {
+      return `<div class="sprite-png-icon" style="background-position: calc(${idx} * 100% / 35) 0%;"></div>`;
+    } else if (activeSpriteSet === "custom") {
+      if (sprites36[idx]) {
+        return `<img src="${sprites36[idx]}" alt="custom">`;
+      }
+      return `<span class="sprite-emoji">${DEFAULT_EMOJIS[idx]}</span>`;
+    } else {
+      return `<span class="sprite-emoji">${DEFAULT_EMOJIS[idx]}</span>`;
+    }
+  }
+
   function renderBoard() {
     boardEl.style.gridTemplateColumns = `repeat(${COLS}, ${tileSize}px)`;
     boardEl.innerHTML = "";
@@ -1184,7 +1353,7 @@
         tile.dataset.c = c;
 
         if (val !== 0) {
-          tile.innerHTML = `<img src="${val}" alt="pk">`;
+          tile.innerHTML = renderTileContent(val);
         }
 
         tile.onclick = () => onTileClick(r, c);
@@ -1300,7 +1469,7 @@
           for (let c = 1; c <= COLS; c++) if (grid[r][c] !== 0) row.push(grid[r][c]);
           let zeros = COLS - row.length;
           for (let c = 1; c <= zeros; c++) grid[r][c] = 0;
-          for (let i = 0; i < row.length; i++) grid[r][zeros + 1 + i] = row[i];
+          for (let i = 0; i < row.length; i++) grid[r][zeros + 1 + i][c] = row[i];
         }
         break;
       case "center_v":
@@ -1698,7 +1867,7 @@
 
     try {
       videoStream = await navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 640 } } 
+        video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 1280 } } 
       });
       cameraVideo.srcObject = videoStream;
     } catch(err) {
@@ -1726,6 +1895,7 @@
   }
 
   function applyCustomAssets() {
+    switchSpriteSet("custom");
     closeCustomModal();
     initGame();
   }
@@ -1745,7 +1915,7 @@
   if (!loadFromLocalStorage()) {
     initDefaultPixelSprites();
   }
-
+  checkPiecesSpriteFile();
   window.onload = initGame;
 </script>
 </body>
